@@ -1,0 +1,334 @@
+{
+  "name": "AI Project Temp",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "iaproject",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -20
+      ],
+      "id": "d1dab1fc-f640-4349-b012-61c2c7403c4b",
+      "name": "Webhook",
+      "webhookId": "89879ff0-d323-49f0-83cc-34667f2a95bc"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "813b7aa1-4dec-4ea0-8afa-740b17794aec",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -20
+      ],
+      "id": "ab135224-7eff-4f40-8124-4294b1e48c70",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}",
+        "options": {
+          "systemMessage": "Você será um simpático assistente de barbearia, ajudando o barbeiro a consultar informações do banco de dados da barbearia, você informara apenas aquilo que o barbeiro pedir. Você só fala em português.\n\n\nVocê é um assistente inteligente conectado a um banco de dados por meio de ferramentas que acessam diferentes tabelas. Quando necessário, utilize as ferramentas disponíveis para buscar informações específicas:\n\n- Use a ferramenta **get item** para buscar itens no banco de dados a partir da tabela `itens`.\n- Use a ferramenta **get clients** para buscar clientes na tabela `clientes`.\n- Use a ferramenta **get fatura** para obter dados de faturas na tabela `faturas`.\n- Use a ferramenta **get itens vendidos** para obter dados da tabela `itens_vendidos`.\n\nSe o usuário pedir informações sobre vendas busque na tabela itens vendidos.\n\nCada ferramenta retorna linhas completas da respectiva tabela. Sempre selecione a ferramenta correta com base no tipo de informação que o usuário solicita. Priorize precisão e relevância nas respostas.\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        620,
+        -20
+      ],
+      "id": "7ce967c9-7087-4fb7-bd35-2e1ffeab063d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get client data",
+        "operation": "getAll",
+        "tableId": "tb_clientes",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        540,
+        260
+      ],
+      "id": "49389af8-4f3a-4ed0-a303-7ea9c95223b1",
+      "name": "get clients",
+      "credentials": {
+        "supabaseApi": {
+          "id": "hA4zT9jtHZtHlq5o",
+          "name": "Supabase Victor AI TEMP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "deepseek-r1-distill-llama-70b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ],
+      "id": "86abb41d-9317-472c-a6ed-8bc50b691e41",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "MmHiPvxYYi53Bhes",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={\n  \"output\": \"{{ $json.output }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        1340,
+        -20
+      ],
+      "id": "e9148e5e-772a-4f3c-bd5c-835b3ba34ad0",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b15ec85-9561-44ed-943c-b16352615baa",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1060,
+        -20
+      ],
+      "id": "7d1f65b0-cd98-42c4-9693-3516d62470ca",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get itens data",
+        "operation": "getAll",
+        "tableId": "tb_itens",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        420,
+        260
+      ],
+      "id": "caed7720-fab5-423f-9eb8-afa1b9c7eb4d",
+      "name": "get item",
+      "credentials": {
+        "supabaseApi": {
+          "id": "hA4zT9jtHZtHlq5o",
+          "name": "Supabase Victor AI TEMP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Obtem dados sobre faturas",
+        "operation": "getAll",
+        "tableId": "tb_faturas",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        700,
+        260
+      ],
+      "id": "f6cf6d88-018f-43d3-9b90-2b10f3895d3a",
+      "name": "get fatura",
+      "credentials": {
+        "supabaseApi": {
+          "id": "hA4zT9jtHZtHlq5o",
+          "name": "Supabase Victor AI TEMP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Obtem somente itens vendidos",
+        "operation": "getAll",
+        "tableId": "tb_itens_vendidos",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        860,
+        260
+      ],
+      "id": "d3f24a30-d085-487a-a0e5-db8c652f1be7",
+      "name": "get itens vendidos",
+      "credentials": {
+        "supabaseApi": {
+          "id": "hA4zT9jtHZtHlq5o",
+          "name": "Supabase Victor AI TEMP"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get clients": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get item": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get fatura": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get itens vendidos": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7c6a69c6-809c-4699-a91f-959c7146ac3d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "33738330930e3881dd5571eca013f36ddf8aab20e4ea5c1f2ebaf4a2b4668ac6"
+  },
+  "id": "gC2OjlfCdAqyuIGK",
+  "tags": [
+    {
+      "createdAt": "2025-04-25T11:25:04.309Z",
+      "updatedAt": "2025-04-25T11:25:04.309Z",
+      "id": "w7zleIQZhSexStou",
+      "name": "by: Victor"
+    }
+  ]
+}
