@@ -10,19 +10,27 @@ Arquitetura do Projeto
 
 O fluxo de dados foi desenhado para ser simples e eficiente. A comunicação é iniciada pelo front-end e orquestrada inteiramente pelo n8n, que lida com a lógica de negócio e o acesso aos dados.
 
-´´´[Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
-|
-v
-(Executa consulta SQL dinâmica)
-|
-v
-[Banco de Dados PostgreSQL] &lt;-- (Solicita e recebe dados)  &lt;--  [Nó de Banco de Dados]
-|
-v
+A alternativa correta é substituir esse bloco de linha única pelo texto com as quebras de linha já inseridas.
+
+O problema é que você colocou o texto que já estava quebrado (em uma só linha) dentro do bloco de código. O bloco de código não adiciona as quebras de linha, ele apenas preserva as que já existem.
+
+**Apague essa linha que você colou e substitua pelo bloco de texto abaixo.** Ele já contém as quebras de linha corretas dentro das crases (\`\`\`) e irá funcionar.
+
+```
+[Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
+                                                                        |
+                                                                        v
+                                                            (Executa consulta SQL dinâmica)
+                                                                        |
+                                                                        v
+[Banco de Dados PostgreSQL] <-- (Solicita e recebe dados)  <--  [Nó de Banco de Dados]
+           |
+           v
 (Retorna resposta em JSON para o Workflow)
-|
-v
-[Aplicação Front-End]  &lt;-- (Recebe os dados para exibir)  &lt;--  [Workflow n8n]´´´
+           |
+           v
+[Aplicação Front-End]  <-- (Recebe os dados para exibir)  <--  [Workflow n8n]
+```
 
 Funcionalidades Principais
 
