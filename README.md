@@ -10,11 +10,6 @@ Arquitetura do Projeto
 
 O fluxo de dados foi desenhado para ser simples e eficiente. A comunicação é iniciada pelo front-end e orquestrada inteiramente pelo n8n, que lida com a lógica de negócio e o acesso aos dados.
 
-A alternativa correta é substituir esse bloco de linha única pelo texto com as quebras de linha já inseridas.
-
-O problema é que você colocou o texto que já estava quebrado (em uma só linha) dentro do bloco de código. O bloco de código não adiciona as quebras de linha, ele apenas preserva as que já existem.
-
-
 ```
 [Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
                                                                         |
