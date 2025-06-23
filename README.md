@@ -10,7 +10,7 @@ Arquitetura do Projeto
 
 O fluxo de dados foi desenhado para ser simples e eficiente. A comunicação é iniciada pelo front-end e orquestrada inteiramente pelo n8n, que lida com a lógica de negócio e o acesso aos dados.
 
-'''[Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
+´´´[Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
 |
 v
 (Executa consulta SQL dinâmica)
@@ -22,7 +22,7 @@ v
 (Retorna resposta em JSON para o Workflow)
 |
 v
-[Aplicação Front-End]  &lt;-- (Recebe os dados para exibir)  &lt;--  [Workflow n8n]'''
+[Aplicação Front-End]  &lt;-- (Recebe os dados para exibir)  &lt;--  [Workflow n8n]´´´
 
 Funcionalidades Principais
 
