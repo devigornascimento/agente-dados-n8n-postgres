@@ -20,11 +20,13 @@ O fluxo de dados foi desenhado para ser simples e eficiente. A comunicação é 
         |
         v
 [Aplicação Front-End]  <-- (Recebe os dados para exibir)  <--  [Workflow n8n]
+
 Funcionalidades Principais
 Comunicação via Webhook: O workflow é ativado instantaneamente por requisições HTTP (webhooks) enviadas pela aplicação front-end.
 Orquestração de Processos: O n8n gerencia todo o fluxo da requisição, desde o recebimento dos parâmetros até a devolução da resposta final.
 Consultas Dinâmicas ao Banco de Dados: Executa queries SQL dinâmicas e parametrizadas no PostgreSQL, permitindo que os filtros e as buscas sejam flexíveis e baseados nos dados enviados pelo usuário.
 Respostas em Tempo Real: Processa e retorna os dados em formato JSON, garantindo baixa latência e uma experiência de usuário responsiva.
+
 Tecnologias Utilizadas
 Plataforma de Automação: n8n.io
 Banco de Dados: PostgreSQL
