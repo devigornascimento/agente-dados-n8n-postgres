@@ -5,6 +5,7 @@ Descrição
 Este repositório contém o workflow de um agente de backend construído na plataforma low-code n8n. O projeto foi desenvolvido para atuar como uma ponte inteligente e responsiva entre uma aplicação front-end e um banco de dados PostgreSQL, automatizando a busca e entrega de informações em tempo real com base nas ações do usuário.
 
 Arquitetura do Projeto
+
 O fluxo de dados foi desenhado para ser simples e eficiente. A comunicação é iniciada pelo front-end e orquestrada inteiramente pelo n8n, que lida com a lógica de negócio e o acesso aos dados.
 
 [Aplicação Front-End]  -->  (Ação do Usuário dispara Webhook)  -->  [Workflow n8n]
